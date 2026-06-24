@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
+import { selectTotalItems, useCartStore } from "../../store/cartStore";
 import HeaderMenu from "./HeaderMenu";
 
 const Header = () => {
+  const totalItems = useCartStore(selectTotalItems);
   const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -68,13 +71,28 @@ const Header = () => {
               </div>
             </Link>
 
-            <button
-              type="button"
-              onClick={menuVisible ? closeMenu : openMenu}
-              className="relative flex h-10 w-10 items-center justify-center p-2 transition-opacity hover:opacity-70 cursor-pointer"
-              aria-label={menuVisible ? "Закрыть меню" : "Открыть меню"}
-              aria-expanded={menuVisible}
-            >
+            <div className="flex items-center gap-2">
+              {totalItems > 0 && (
+                <Link
+                  to="/cart"
+                  onClick={closeMenu}
+                  className="relative flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-70"
+                  aria-label={`Корзина, ${totalItems} товаров`}
+                >
+                  <FaShoppingBag className="text-xl text-stone-800" />
+                  <span className="absolute -top-0.5 -right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#8b6914] px-1 text-[10px] font-semibold text-white">
+                    {totalItems}
+                  </span>
+                </Link>
+              )}
+
+              <button
+                type="button"
+                onClick={menuVisible ? closeMenu : openMenu}
+                className="relative flex h-10 w-10 cursor-pointer items-center justify-center p-2 transition-opacity hover:opacity-70"
+                aria-label={menuVisible ? "Закрыть меню" : "Открыть меню"}
+                aria-expanded={menuVisible}
+              >
               <span className="relative block h-5 w-6" aria-hidden="true">
                 <span
                   className={`absolute left-0 block h-0.5 w-6 bg-stone-800 transition-all duration-300 ease-out ${
@@ -96,7 +114,8 @@ const Header = () => {
                   }`}
                 />
               </span>
-            </button>
+              </button>
+            </div>
           </div>
         </header>
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import AddToCartButton from "../components/AddToCartButton";
 import VolumeSelector from "../components/VolumeSelector";
 import { productCards } from "../constants/productCards";
 import { formatPrice } from "../utils/formatPrice";
@@ -62,9 +63,15 @@ const ProductPage = () => {
               onChange={setSelectedVolume}
             />
           </div>
-          <p className="mb-8 text-2xl font-semibold tracking-wide text-stone-900">
+          <p className="mb-6 text-2xl font-semibold tracking-wide text-stone-900">
             {formatPrice(product.volumes[selectedVolume])}
           </p>
+          <AddToCartButton
+            productId={product.id}
+            volume={selectedVolume}
+            price={product.volumes[selectedVolume]}
+            className="mb-8"
+          />
 
           <dl className="space-y-3 text-sm">
             <div className="flex flex-col gap-1 border-b border-stone-100 pb-3 sm:flex-row sm:gap-4">
