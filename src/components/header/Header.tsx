@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/logo.png";
 import { useCartStore } from "../../store/cartStore";
 import HeaderMenu from "./components/HeaderMenu";
@@ -7,7 +7,10 @@ import HeaderSearch from "./components/HeaderSearch";
 import CartLink from "./components/CartLink";
 
 const Header = () => {
+  const location = useLocation();
+
   const lastAddedAt = useCartStore((state) => state.lastAddedAt);
+
   const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -135,7 +138,9 @@ const Header = () => {
           <HeaderMenu menuOpen={menuOpen} closeMenu={closeMenu} />
         )}
 
-        <CartLink showAddedNotice={showAddedNotice} closeMenu={closeMenu} />
+        {location.pathname !== "/cart" && (
+          <CartLink showAddedNotice={showAddedNotice} closeMenu={closeMenu} />
+        )}
       </div>
     </>
   );

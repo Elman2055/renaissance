@@ -13,7 +13,7 @@ const CartLink = ({ showAddedNotice, closeMenu }: CartLinkProps) => {
   if (totalItems === 0) return null;
 
   return (
-    <div className="fixed bottom-6 right-5 lg:bottom-10 lg:right-10 z-50 flex items-center">
+    <div className="fixed bottom-3 right-5 lg:bottom-10 lg:right-10 z-50 flex items-center">
       {showAddedNotice && (
         <span
           className="cart-added-notice pointer-events-none absolute bottom-1 right-20 mb-3 whitespace-nowrap rounded-md border bg-[#312f2d] px-3 py-2 text-sm text-white shadow-lg after:absolute after:left-6 after:top-full after:border-x-transparent after:border-t-[#312f2d] after:content-['']"

@@ -34,8 +34,14 @@ const CartPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-8 md:py-12">
-      <h1 className="mb-10 text-3xl font-semibold text-stone-900">Корзина</h1>
+    <div className="mx-auto max-w-6xl px-6 pb-8 pt-2 md:py-12">
+      <Link
+        to="/"
+        className="text-sm tracking-widest text-stone-500 uppercase transition-colors hover:text-stone-900"
+      >
+        ← Каталог
+      </Link>
+      <h1 className="mt-5 mb-4 text-2xl font-semibold text-black">Ваш заказ:</h1>
 
       <ul className="divide-y divide-stone-200 border-y border-stone-200">
         {items.map((item) => {
@@ -137,12 +143,6 @@ const CartPage = () => {
         >
           Оформить заказ
         </a>
-        <Link
-          to="/"
-          className="text-sm tracking-widest text-stone-500 uppercase transition-colors hover:text-stone-900"
-        >
-          ← Продолжить покупки
-        </Link>
       </div>
     </div>
   );
