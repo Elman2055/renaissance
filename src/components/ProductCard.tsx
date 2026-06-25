@@ -24,7 +24,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
         />
       </Link>
-      <div className="flex flex-1 flex-col gap-2 p-5">
+      <div className="flex flex-1 flex-col justify-between gap-2 py-4 px-3">
         <Link to={`/product/${product.id}`}>
           <h3 className="text-lg leading-snug font-semibold text-stone-900 transition-colors hover:text-[#8b6914]">
             {product.name}
@@ -38,12 +38,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
           selected={selectedVolume}
           onChange={setSelectedVolume}
         />
-        <AddToCartButton
-          productId={product.id}
-          volume={selectedVolume}
-          price={product.volumes[selectedVolume]}
-          className="mt-2"
-        />
+        <div className="flex flex-col sm:flex-row items-center gap-2 mt-2">
+          <AddToCartButton
+            productId={product.id}
+            volume={selectedVolume}
+            price={product.volumes[selectedVolume]}
+            className="w-full"
+          />
+          <Link
+            to={`/product/${product.id}`}
+            className="w-full cursor-pointer items-center gap-2 rounded-sm border border-[#8b6914] px-2 py-2 text-sm font-semibold bg-white text-[#8b6914] sm:px-5 text-center "
+          >
+            Подробнее
+          </Link>
+        </div>
       </div>
     </div>
   );

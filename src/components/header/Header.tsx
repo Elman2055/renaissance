@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
-import { selectTotalItems, useCartStore } from "../../store/cartStore";
-import HeaderMenu from "./HeaderMenu";
+import { useCartStore } from "../../store/cartStore";
+import HeaderMenu from "./components/HeaderMenu";
+import HeaderSearch from "./components/HeaderSearch";
+import CartLink from "./components/CartLink";
 
 const Header = () => {
-  const totalItems = useCartStore(selectTotalItems);
+  const lastAddedAt = useCartStore((state) => state.lastAddedAt);
   const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [showAddedNotice, setShowAddedNotice] = useState(false);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -30,6 +32,14 @@ const Header = () => {
       document.body.style.overflow = "";
     };
   }, [menuVisible]);
+
+  useEffect(() => {
+    if (!lastAddedAt) return;
+
+    setTimeout(() => setShowAddedNotice(true), 0);
+    const timer = window.setTimeout(() => setShowAddedNotice(false), 1200);
+    return () => clearTimeout(timer);
+  }, [lastAddedAt]);
 
   const openMenu = () => {
     setMenuVisible(true);
@@ -72,20 +82,6 @@ const Header = () => {
             </Link>
 
             <div className="flex items-center gap-2">
-              {totalItems > 0 && (
-                <Link
-                  to="/cart"
-                  onClick={closeMenu}
-                  className="relative flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-70"
-                  aria-label={`Корзина, ${totalItems} товаров`}
-                >
-                  <FaShoppingBag className="text-xl text-stone-800" />
-                  <span className="absolute -top-0.5 -right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#8b6914] px-1 text-[10px] font-semibold text-white">
-                    {totalItems}
-                  </span>
-                </Link>
-              )}
-
               <button
                 type="button"
                 onClick={menuVisible ? closeMenu : openMenu}
@@ -93,30 +89,34 @@ const Header = () => {
                 aria-label={menuVisible ? "Закрыть меню" : "Открыть меню"}
                 aria-expanded={menuVisible}
               >
-              <span className="relative block h-5 w-6" aria-hidden="true">
-                <span
-                  className={`absolute left-0 block h-0.5 w-6 bg-stone-800 transition-all duration-300 ease-out ${
-                    menuOpen
-                      ? "top-1/2 -translate-y-1/2 rotate-45"
-                      : "top-0 rotate-0"
-                  }`}
-                />
-                <span
-                  className={`absolute left-0 top-1/2 block h-0.5 w-6 -translate-y-1/2 bg-stone-800 transition-all duration-300 ease-out ${
-                    menuOpen ? "scale-x-0 opacity-0" : "scale-x-100 opacity-100"
-                  }`}
-                />
-                <span
-                  className={`absolute left-0 block h-0.5 w-6 bg-stone-800 transition-all duration-300 ease-out ${
-                    menuOpen
-                      ? "top-1/2 -translate-y-1/2 -rotate-45"
-                      : "bottom-0 rotate-0"
-                  }`}
-                />
-              </span>
+                <span className="relative block h-5 w-6" aria-hidden="true">
+                  <span
+                    className={`absolute left-0 block h-0.5 w-6 bg-stone-800 transition-all duration-300 ease-out ${
+                      menuOpen
+                        ? "top-1/2 -translate-y-1/2 rotate-45"
+                        : "top-0 rotate-0"
+                    }`}
+                  />
+                  <span
+                    className={`absolute left-0 top-1/2 block h-0.5 w-6 -translate-y-1/2 bg-stone-800 transition-all duration-300 ease-out ${
+                      menuOpen
+                        ? "scale-x-0 opacity-0"
+                        : "scale-x-100 opacity-100"
+                    }`}
+                  />
+                  <span
+                    className={`absolute left-0 block h-0.5 w-6 bg-stone-800 transition-all duration-300 ease-out ${
+                      menuOpen
+                        ? "top-1/2 -translate-y-1/2 -rotate-45"
+                        : "bottom-0 rotate-0"
+                    }`}
+                  />
+                </span>
               </button>
             </div>
           </div>
+
+          <HeaderSearch menuOpen={menuOpen} closeMenu={closeMenu} />
         </header>
 
         {menuVisible && (
@@ -134,6 +134,8 @@ const Header = () => {
         {menuVisible && (
           <HeaderMenu menuOpen={menuOpen} closeMenu={closeMenu} />
         )}
+
+        <CartLink showAddedNotice={showAddedNotice} closeMenu={closeMenu} />
       </div>
     </>
   );

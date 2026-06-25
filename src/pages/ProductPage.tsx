@@ -40,7 +40,7 @@ const ProductPage = () => {
         ← Каталог
       </Link>
 
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 items-start">
         <div className="overflow-hidden rounded-sm border border-stone-200 bg-white">
           <img
             src={product.image}
@@ -70,24 +70,24 @@ const ProductPage = () => {
             productId={product.id}
             volume={selectedVolume}
             price={product.volumes[selectedVolume]}
-            className="mb-8"
+            className="mb-8 w-[150px] sm:w-[200px]"
           />
 
           <dl className="space-y-3 text-sm">
             <div className="flex flex-col gap-1 border-b border-stone-100 pb-3 sm:flex-row sm:gap-4">
-              <p className="shrink-0 font-medium text-black sm:w-28">
+              <p className="shrink-0 font-medium text-black sm:w-[95%]">
                 Верхние ноты:
                 <span className="text-[#8b6914]">{` ${product.upper}`}</span>
               </p>
             </div>
             <div className="flex flex-col gap-1 border-b border-stone-100 pb-3 sm:flex-row sm:gap-4">
-              <p className="shrink-0 font-medium text-black sm:w-28">
+              <p className="shrink-0 font-medium text-black sm:w-[95%]">
                 Средние ноты:
                 <span className="text-[#8b6914]">{` ${product.medium}`}</span>
               </p>
             </div>
             <div className="flex flex-col gap-1 border-b border-stone-100 pb-3 sm:flex-row sm:gap-4">
-              <p className="shrink-0 font-medium text-black sm:w-28">
+              <p className="shrink-0 font-medium text-black sm:w-[95%]">
                 Базовые ноты:
                 <span className="text-[#8b6914]">{` ${product.basic}`}</span>
               </p>

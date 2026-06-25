@@ -4,6 +4,7 @@ import type { CartItem } from "../types/cart";
 
 type CartStore = {
   items: CartItem[];
+  lastAddedAt: number | null;
   addItem: (item: Omit<CartItem, "quantity">) => void;
   removeItem: (productId: number, volume: string) => void;
   updateQuantity: (productId: number, volume: string, quantity: number) => void;
@@ -14,6 +15,7 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      lastAddedAt: null,
       addItem: (item) => {
         set((state) => {
           const existing = state.items.find(
@@ -27,11 +29,13 @@ export const useCartStore = create<CartStore>()(
                   ? { ...i, quantity: i.quantity + 1 }
                   : i,
               ),
+              lastAddedAt: Date.now(),
             };
           }
 
           return {
             items: [...state.items, { ...item, quantity: 1 }],
+            lastAddedAt: Date.now(),
           };
         });
       },
@@ -60,6 +64,7 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: "parfume-cart",
+      partialize: (state) => ({ items: state.items }),
     },
   ),
 );

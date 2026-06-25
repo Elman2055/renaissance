@@ -1,6 +1,6 @@
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { INSTAGRAM_URL, WHATSAPP_URL } from "../../constants/socialLinks";
+import { INSTAGRAM_URL, WHATSAPP_URL } from "../../../constants/socialLinks";
 
 type THeaderMenu = { menuOpen: boolean; closeMenu: () => void };
 

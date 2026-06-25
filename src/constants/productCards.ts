@@ -19,7 +19,7 @@ export const productCards: Product[] = [
   {
     id: 1,
     image: onTheRocks,
-    name: "Angels' Share On the Rocks",
+    name: "Killian Angels' Share On the Rocks",
     upper: "Грейпфрут, Лимон, Бергамот, Мандарин, Горький апельсин, Альдегиды",
     medium: "Коньяк, Корица, Карамель",
     basic: "Бобы тонка, Дуб, Сандал, Кашемировое дерево, Мирра",

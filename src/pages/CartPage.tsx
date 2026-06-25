@@ -1,14 +1,12 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { productCards } from "../constants/productCards";
-import {
-  selectTotalPrice,
-  useCartStore,
-} from "../store/cartStore";
+import { selectTotalPrice, useCartStore } from "../store/cartStore";
 import { buildWhatsAppOrderUrl } from "../utils/buildWhatsAppOrderUrl";
 import { formatPrice } from "../utils/formatPrice";
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const items = useCartStore((state) => state.items);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -20,6 +18,7 @@ const CartPage = () => {
   }, []);
 
   if (items.length === 0) {
+    navigate("/");
     return (
       <div className="mx-auto max-w-6xl px-6 py-24 text-center">
         <h1 className="mb-4 text-3xl font-semibold text-stone-900">Корзина</h1>
@@ -47,30 +46,29 @@ const CartPage = () => {
           return (
             <li
               key={`${item.productId}-${item.volume}`}
-              className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center"
+              className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between"
             >
-              <Link
-                to={`/product/${product.id}`}
-                className="shrink-0 overflow-hidden rounded-sm border border-stone-200 bg-white"
-              >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="h-24 w-24 object-contain sm:h-28 sm:w-28"
-                />
-              </Link>
-
-              <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-4">
                 <Link
                   to={`/product/${product.id}`}
-                  className="text-lg font-semibold text-stone-900 transition-colors hover:text-[#8b6914]"
+                  className="shrink-0 overflow-hidden rounded-sm border border-stone-200 bg-white"
                 >
-                  {product.name}
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="h-24 w-24 object-contain sm:h-28 sm:w-28"
+                  />
                 </Link>
-                <p className="mt-1 text-sm text-stone-500">{item.volume}</p>
-                <p className="mt-2 font-semibold text-[#8b6914]">
-                  {formatPrice(item.price)}
-                </p>
+
+                <div className="min-w-0 flex-1">
+                  <Link
+                    to={`/product/${product.id}`}
+                    className="text-lg font-semibold text-stone-900 transition-colors hover:text-[#8b6914]"
+                  >
+                    {product.name}
+                  </Link>
+                  <p className="mt-1 text-sm text-stone-500">{item.volume}</p>
+                </div>
               </div>
 
               <div className="flex items-center gap-4 sm:gap-6">
