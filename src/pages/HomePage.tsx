@@ -5,12 +5,12 @@ const HomePage = () => {
   return (
     <>
       <section className="border-b border-stone-200 bg-[#f5f0e8]">
-        <div className="mx-auto max-w-6xl px-6 py-4 text-center md:py-16">
+        <div className="mx-auto max-w-6xl px-6 py-4 text-center md:py-8">
           <span className="mb-3 block text-xs uppercase tracking-[0.4em] text-stone-500">
             Renaissance Parfum
           </span>
 
-          <h1 className="mx-auto max-w-4xl text-xl font-semibold leading-tight tracking-[0.12em] text-[#8b6914] md:text-5xl">
+          <h1 className="mx-auto max-w-4xl text-xl font-semibold leading-tight tracking-[0.12em] text-[#8b6914] md:text-2xl">
             Оригинальная и нишевая парфюмерия
           </h1>
 

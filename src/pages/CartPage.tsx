@@ -7,9 +7,7 @@ import { formatPrice } from "../utils/formatPrice";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const items = useCartStore((state) => state.items);
-  const updateQuantity = useCartStore((state) => state.updateQuantity);
-  const removeItem = useCartStore((state) => state.removeItem);
+  const { items, updateQuantity, removeItem, clearCart } = useCartStore();
   const totalPrice = useCartStore(selectTotalPrice);
   const whatsAppOrderUrl = buildWhatsAppOrderUrl(items, productCards);
 
@@ -41,7 +39,9 @@ const CartPage = () => {
       >
         ← Каталог
       </Link>
-      <h1 className="mt-5 mb-4 text-2xl font-semibold text-black">Ваш заказ:</h1>
+      <h1 className="mt-5 mb-4 text-2xl font-semibold text-black">
+        Ваш заказ:
+      </h1>
 
       <ul className="divide-y divide-stone-200 border-y border-stone-200">
         {items.map((item) => {
@@ -140,6 +140,7 @@ const CartPage = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex cursor-pointer items-center gap-2 border border-[#8b6914] bg-[#8b6914] px-6 py-3 text-sm font-medium tracking-wider text-white uppercase transition-all duration-300 hover:bg-[#6d5210]"
+          onClick={() => clearCart()}
         >
           Оформить заказ
         </a>

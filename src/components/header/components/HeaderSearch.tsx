@@ -17,6 +17,9 @@ const HeaderSearch = ({ menuOpen, closeMenu }: THeaderSearch) => {
   const goToProduct = (name: string) => {
     const product = productCards.find((item) => item.name === name);
     if (!product) return;
+
+    (document.activeElement as HTMLElement)?.blur();
+
     if (menuOpen) {
       closeMenu();
     }
@@ -33,7 +36,6 @@ const HeaderSearch = ({ menuOpen, closeMenu }: THeaderSearch) => {
           onChange={setValue}
           data={options}
           placeholder="Поиск ароматов..."
-          limit={8}
           onOptionSubmit={goToProduct}
           onKeyDown={(event) => {
             if (event.key !== "Enter" || results.length === 0) return;
