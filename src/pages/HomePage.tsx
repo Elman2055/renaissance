@@ -11,7 +11,7 @@ const HomePage = () => {
           </span>
 
           <h1 className="mx-auto max-w-4xl text-xl font-semibold leading-tight tracking-[0.12em] text-[#8b6914] md:text-2xl">
-            Оригинальная и нишевая парфюмерия
+            Нишевая и Оригинальная парфюмерия
           </h1>
 
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-stone-600 md:text-lg">
